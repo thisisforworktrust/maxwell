@@ -31,6 +31,9 @@
 </head>
 <body>
 
+<!-- Background audio -->
+<audio id="bgmusic" src="bg.mp3" autoplay loop></audio>
+
 <pre id="ascii">Loading animation...</pre>
 
 <script>
@@ -59,6 +62,14 @@ function play() {
         index = (index + 1) % frames.length;
     }, 1);
 }
+
+// Try to start audio if autoplay is blocked
+document.addEventListener("click", () => {
+    const audio = document.getElementById("bgmusic");
+    if (audio.paused) {
+        audio.play();
+    }
+});
 </script>
 
 </body>
