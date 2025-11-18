@@ -15,6 +15,12 @@
         overflow: hidden;
     }
 
+    /* PARTY COLOR ANIMATION */
+    @keyframes party {
+        0%   { filter: hue-rotate(0deg); }
+        100% { filter: hue-rotate(360deg); }
+    }
+
     #ascii {
         white-space: pre;
         font-size: 14px;
@@ -26,12 +32,14 @@
         text-align: center;
         margin: 0;
         padding: 0;
+
+        /* Apply color cycle */
+        animation: party 2s linear infinite;
     }
 </style>
 </head>
 <body>
 
-<!-- Background audio -->
 <audio id="bgmusic" src="bg.mp3" autoplay loop></audio>
 
 <pre id="ascii">Loading animation...</pre>
@@ -41,7 +49,6 @@ let frames = [];
 let index = 0;
 let interval;
 
-// Auto-load animation frames
 fetch("maxwell_ascii.txt")
     .then(response => response.text())
     .then(text => {
@@ -54,7 +61,6 @@ fetch("maxwell_ascii.txt")
         play();
     });
 
-// Auto-play at fastest safe speed
 function play() {
     interval = setInterval(() => {
         if (frames.length === 0) return;
@@ -63,7 +69,6 @@ function play() {
     }, 1);
 }
 
-// Try to start audio if autoplay is blocked
 document.addEventListener("click", () => {
     const audio = document.getElementById("bgmusic");
     if (audio.paused) {
