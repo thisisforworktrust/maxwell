@@ -2,22 +2,30 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>ASCII Animation Player</title>
+<title>MAXWELL</title>
 <style>
-    body {
+    html, body {
         background: black;
         color: white;
         font-family: monospace;
         margin: 0;
-        padding: 20px;
-        text-align: center;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
     }
+
     #ascii {
         white-space: pre;
-        font-size: 12px;
-        line-height: 12px;
-        display: inline-block;
-        text-align: left;
+        font-size: 14px;
+        line-height: 14px;
+        display: block;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        text-align: center;
+        margin: 0;
+        padding: 0;
     }
 </style>
 </head>
@@ -30,27 +38,26 @@ let frames = [];
 let index = 0;
 let interval;
 
-// Load maxwell_ascii.txt automatically
+// Auto-load animation frames
 fetch("maxwell_ascii.txt")
     .then(response => response.text())
     .then(text => {
-        // Split frames using the "--- FRAME" format
         frames = text
             .split(/--- FRAME \d+ ---/g)
             .map(f => f.trim())
             .filter(f => f.length > 0);
 
         index = 0;
-        play(); // auto start
+        play();
     });
 
-// Play at fastest reliable browser interval (1ms)
+// Auto-play at fastest safe speed
 function play() {
     interval = setInterval(() => {
         if (frames.length === 0) return;
         document.getElementById("ascii").textContent = frames[index];
         index = (index + 1) % frames.length;
-    }, 1); // 1 ms = effectively instant
+    }, 1);
 }
 </script>
 
