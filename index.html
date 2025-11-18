@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>ASCII Animation Player</title>
+<style>
+    body {
+        background: black;
+        color: white;
+        font-family: monospace;
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+    }
+    #ascii {
+        white-space: pre;
+        font-size: 12px;
+        line-height: 12px;
+        display: inline-block;
+        text-align: left;
+    }
+</style>
+</head>
+<body>
+
+<pre id="ascii">Loading animation...</pre>
+
+<script>
+let frames = [];
+let index = 0;
+let interval;
+
+// Load maxwell_ascii.txt automatically
+fetch("maxwell_ascii.txt")
+    .then(response => response.text())
+    .then(text => {
+        // Split frames using the "--- FRAME" format
+        frames = text
+            .split(/--- FRAME \d+ ---/g)
+            .map(f => f.trim())
+            .filter(f => f.length > 0);
+
+        index = 0;
+        play(); // auto start
+    });
+
+// Play at fastest reliable browser interval (1ms)
+function play() {
+    interval = setInterval(() => {
+        if (frames.length === 0) return;
+        document.getElementById("ascii").textContent = frames[index];
+        index = (index + 1) % frames.length;
+    }, 1); // 1 ms = effectively instant
+}
+</script>
+
+</body>
+</html>
