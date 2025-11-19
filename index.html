@@ -15,10 +15,13 @@
         overflow: hidden;
     }
 
-    /* PARTY COLOR ANIMATION */
+    /* REAL PARTY COLOR EFFECT (works on text) */
     @keyframes party {
-        0%   { filter: hue-rotate(0deg); }
-        100% { filter: hue-rotate(360deg); }
+        0%   { color: hsl(0, 100%, 50%); }
+        25%  { color: hsl(90, 100%, 50%); }
+        50%  { color: hsl(180, 100%, 50%); }
+        75%  { color: hsl(270, 100%, 50%); }
+        100% { color: hsl(360, 100%, 50%); }
     }
 
     #ascii {
@@ -32,9 +35,7 @@
         text-align: center;
         margin: 0;
         padding: 0;
-
-        /* Apply color cycle */
-        animation: party 2s linear infinite;
+        animation: party 2s linear infinite; /* Apply rainbow effect */
     }
 </style>
 </head>
